@@ -8,13 +8,34 @@
 
 import UIKit
 class ChatListViewController: UIViewController{
-    
+    private let cellId = "cellId"
     @IBOutlet weak var ChatListTableView: UITableView!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        ChatListTableView.delegate = self
+        ChatListTableView.dataSource = self
+        
     }
+}
+//Mark :-UITableViewDataSource,UITableViewDelegate
+extension ChatListViewController:
+UITableViewDataSource,UITableViewDelegate{
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 80
+    }
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 10
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = ChatListTableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath)
+        return cell
+    }
+    
+    
 }
 
 class ChatlListTableViewCell: UITableViewCell{
@@ -25,6 +46,7 @@ class ChatlListTableViewCell: UITableViewCell{
     @IBOutlet weak var DateLabel: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
+        UserImageView.layer.cornerRadius = 35
     }
     
     
